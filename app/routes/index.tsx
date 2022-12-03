@@ -25,14 +25,26 @@ export default function Index() {
   return (
     <ResponsiveContainer>
       <MyStyledH1>Welcome to Ghostwriter</MyStyledH1>
-      <ContentTypeSelect
-        contentType={contentType}
-        setContentType={setContentType}
-      />
-      <PersonalitySelect
-        personality={personality}
-        setPersonality={setPersonality}
-      />
+      <div className="homePage-inputs">
+        <div>Write a</div>
+        <ContentTypeSelect
+          contentType={contentType}
+          setContentType={setContentType}
+        />
+        <div>about</div>
+        <input
+          className="global-textInput"
+          type="text"
+          id="name"
+          name="name"
+          required
+        />
+        <div>in the style of</div>
+        <PersonalitySelect
+          personality={personality}
+          setPersonality={setPersonality}
+        />
+      </div>
     </ResponsiveContainer>
   );
 }

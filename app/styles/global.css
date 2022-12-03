@@ -1,3 +1,8 @@
+.global-textInput {
+  border: 1px solid black;
+  border-radius: 4px;
+}
+
 /*
  * If content is placed within this container, it will have responsive horizontal padding.
  * This means if the content within this container has a width of 100%, it will look good 
