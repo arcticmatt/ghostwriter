@@ -1,4 +1,4 @@
-app = "blog-tutorial-96cb"
+app = "ghostwriter"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = [ ]
