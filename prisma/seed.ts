@@ -85,6 +85,29 @@ async function seed() {
     });
   }
 
+  const numGeneratedContent = await prisma.generatedContent.count();
+  if (numGeneratedContent === 0) {
+    await prisma.generatedContent.create({
+      data: {
+        isFavorite: true,
+        generatedContent: "The sky is blue, and cows go moo",
+        name: "Test content",
+        user: {
+          connect: {
+            id: user.id,
+          },
+        },
+        prompt: {
+          create: {
+            about: "Sky",
+            contentType: "Poem",
+            personality: "Matt",
+          },
+        },
+      },
+    });
+  }
+
   console.log(`Database has been seeded. 🌱`);
 }
 

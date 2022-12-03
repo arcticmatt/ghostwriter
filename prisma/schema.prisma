@@ -14,8 +14,9 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  password Password?
-  notes    Note[]
+  password         Password?
+  notes            Note[]
+  generatedContent GeneratedContent[]
 }
 
 model Password {
@@ -44,4 +45,30 @@ model Post {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Prompt {
+  id          String @id @default(cuid())
+  about       String
+  contentType String
+  personality String
+
+  createdAt        DateTime           @default(now())
+  GeneratedContent GeneratedContent[]
+}
+
+model GeneratedContent {
+  id               String  @id @default(cuid())
+  isFavorite       Boolean @default(false)
+  generatedContent String
+  name             String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId String
+
+  prompt   Prompt @relation(fields: [promptId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  promptId String
 }
