@@ -6,6 +6,7 @@ import { useOptionalUser } from "~/utils";
 import ContentTypeSelect from "~/components/select/ContentTypeSelect";
 import { useState } from "react";
 import type { Maybe } from "~/types/UtilityTypes";
+import PersonalitySelect from "~/components/select/PersonalitySelect";
 
 export function links() {
   return [{ rel: "stylesheet", href: styles }];
@@ -19,6 +20,7 @@ const MyStyledH1 = styled.h1`
 export default function Index() {
   const user = useOptionalUser();
   const [contentType, setContentType] = useState<Maybe<string>>(null);
+  const [personality, setPersonality] = useState<Maybe<string>>(null);
 
   return (
     <ResponsiveContainer>
@@ -26,6 +28,10 @@ export default function Index() {
       <ContentTypeSelect
         contentType={contentType}
         setContentType={setContentType}
+      />
+      <PersonalitySelect
+        personality={personality}
+        setPersonality={setPersonality}
       />
     </ResponsiveContainer>
   );
