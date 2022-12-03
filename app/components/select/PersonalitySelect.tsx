@@ -1,5 +1,5 @@
 import type { Maybe } from "~/types/UtilityTypes";
-import Select from "react-select";
+import CreatableSelect from "react-select/creatable";
 import Personality from "~/types/enums/Personality";
 
 const OPTIONS = Object.values(Personality).map((personality) => ({
@@ -17,7 +17,7 @@ export default function PersonalitySelect({
   setPersonality,
 }: Props) {
   return (
-    <Select
+    <CreatableSelect
       onChange={(val) => setPersonality((val as any).value)}
       options={OPTIONS}
       placeholder="Select a person"

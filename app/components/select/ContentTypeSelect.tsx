@@ -1,6 +1,6 @@
 import ContentType from "~/types/enums/ContentType";
 import type { Maybe } from "~/types/UtilityTypes";
-import Select from "react-select";
+import CreatableSelect from "react-select/creatable";
 
 const OPTIONS = Object.values(ContentType).map((contentType) => ({
   label: contentType,
@@ -17,7 +17,7 @@ export default function ContentTypeSelect({
   setContentType,
 }: Props) {
   return (
-    <Select
+    <CreatableSelect
       onChange={(val) => setContentType((val as any).value)}
       options={OPTIONS}
       placeholder="Select a content type"
