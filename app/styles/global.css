@@ -1,3 +1,8 @@
+.global-button {
+  background-color: lightpink !important;
+  padding: 10px;
+}
+
 .global-textInput {
   border: 1px solid black;
   border-radius: 4px;

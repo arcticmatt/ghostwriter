@@ -57,7 +57,6 @@ const Document = withEmotionCache(
 
     // Only executed on client
     useEffect(() => {
-      console.log("useEffect");
       // re-link sheet container
       emotionCache.sheet.container = document.head;
 

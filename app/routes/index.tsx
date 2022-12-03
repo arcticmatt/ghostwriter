@@ -7,6 +7,17 @@ import ContentTypeSelect from "~/components/select/ContentTypeSelect";
 import { useState } from "react";
 import type { Maybe } from "~/types/UtilityTypes";
 import PersonalitySelect from "~/components/select/PersonalitySelect";
+import type { ActionFunction } from "@remix-run/node";
+import { json } from "@remix-run/node";
+import { Form, useActionData } from "@remix-run/react";
+
+export const action: ActionFunction = async ({ request }) => {
+  console.log("in remix action");
+  const formData = await request.formData();
+  console.log("formData", ...formData);
+
+  return json({ test: "hello world" });
+};
 
 export function links() {
   return [{ rel: "stylesheet", href: styles }];
@@ -21,11 +32,14 @@ export default function Index() {
   const user = useOptionalUser();
   const [contentType, setContentType] = useState<Maybe<string>>(null);
   const [personality, setPersonality] = useState<Maybe<string>>(null);
+  const data = useActionData();
+
+  console.log("data", data);
 
   return (
     <ResponsiveContainer>
       <MyStyledH1>Welcome to Ghostwriter</MyStyledH1>
-      <div className="homePage-inputs">
+      <Form className="homePage-inputs" method="post">
         <div>Write a</div>
         <ContentTypeSelect
           contentType={contentType}
@@ -35,8 +49,8 @@ export default function Index() {
         <input
           className="global-textInput"
           type="text"
-          id="name"
-          name="name"
+          id="about"
+          name="about"
           required
         />
         <div>in the style of</div>
@@ -44,7 +58,12 @@ export default function Index() {
           personality={personality}
           setPersonality={setPersonality}
         />
-      </div>
+        <input type="hidden" name="contentType" value={contentType ?? ""} />
+        <input type="hidden" name="personality" value={personality ?? ""} />
+        <button className="global-button" type="submit">
+          Submit!
+        </button>
+      </Form>
     </ResponsiveContainer>
   );
 }
