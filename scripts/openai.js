@@ -14,18 +14,37 @@ async function run() {
 
   try {
     // Parameters taken from https://beta.openai.com/playground/p/default-chat
-    const completion = await openai.createCompletion({
-      best_of: 1,
-      frequency_penalty: 0,
-      model: "text-davinci-003",
-      presence_penalty: 0.6,
-      prompt,
-      // safety check so we don't get billed like crazy
-      max_tokens: 500,
-      temperature: 0.9,
-      top_p: 1,
+    const response = await openai.createCompletion(
+      {
+        best_of: 1,
+        frequency_penalty: 0,
+        model: "ada",
+        presence_penalty: 0.6,
+        prompt,
+        // safety check so we don't get billed like crazy
+        max_tokens: 20,
+        temperature: 0.9,
+        stream: true,
+        top_p: 1,
+      },
+      { responseType: "stream" }
+    );
+
+    const stream = response.data;
+
+    stream.on("data", (data) => {
+      console.log(data.toString());
+      const strData = data.toString();
+
+      if (!strData.includes("[DONE]")) {
+        const jsonData = JSON.parse(strData.slice(5));
+        console.log(jsonData.choices[0].text);
+      }
     });
-    console.log(completion.data.choices[0].text);
+
+    stream.on("end", () => {
+      console.log("stream done");
+    });
   } catch (error) {
     if (error.response) {
       console.log(error.response.status);
