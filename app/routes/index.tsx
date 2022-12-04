@@ -41,7 +41,6 @@ export const action: ActionFunction = async ({ request }) => {
 
   const response = await getGeneratedContent(contentType, about, personality);
 
-  console.log("RESPONSE IN ACTION", response);
   return json({ response });
 };
 
@@ -58,8 +57,6 @@ export default function Index() {
   const [contentType, setContentType] = useState<Maybe<string>>(null);
   const [personality, setPersonality] = useState<Maybe<string>>(null);
   const data = useActionData();
-
-  console.log("action data NOT printing", data);
 
   return (
     <ResponsiveContainer>
@@ -89,6 +86,7 @@ export default function Index() {
           Submit!
         </button>
       </Form>
+      {data?.response ? <div>{data.response}</div> : null}
     </ResponsiveContainer>
   );
 }
