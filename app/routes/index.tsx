@@ -53,6 +53,11 @@ const MyStyledH1 = styled.h1`
   color: green;
 `;
 
+const ResponseDiv = styled.div`
+  white-space: pre-line;
+  margin-top: 16px;
+`;
+
 export default function Index() {
   const [contentType, setContentType] = useState<Maybe<string>>(null);
   const [personality, setPersonality] = useState<Maybe<string>>(null);
@@ -86,7 +91,9 @@ export default function Index() {
           Submit!
         </button>
       </Form>
-      {data?.response ? <div>{data.response}</div> : null}
+      {data?.response ? (
+        <ResponseDiv>{data.response.trim()}</ResponseDiv>
+      ) : null}
     </ResponsiveContainer>
   );
 }
