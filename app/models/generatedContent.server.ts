@@ -2,8 +2,9 @@ import { prisma } from "~/db.server";
 
 import type { GeneratedContent, Prompt } from "@prisma/client";
 import type { MaybeUndef } from "~/types/UtilityTypes";
+import invariant from "tiny-invariant";
 
-type GeneratedContentForClient = {
+export type GeneratedContentForClient = {
   createdAt: string;
   id: string;
   name: MaybeUndef<string>;
@@ -30,6 +31,19 @@ function convertGeneratedContent(
       personality: prismaPrompt.personality,
     },
   };
+}
+
+export async function getFavorite(
+  id: string
+): Promise<GeneratedContentForClient> {
+  const prismaGeneratedContent = await prisma.generatedContent.findUnique({
+    include: GENERATED_CONTENT_INCLUDE,
+    where: {
+      id,
+    },
+  });
+  invariant(prismaGeneratedContent != null);
+  return convertGeneratedContent(prismaGeneratedContent);
 }
 
 export async function getFavorites(
