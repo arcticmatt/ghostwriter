@@ -9,6 +9,7 @@ export type GeneratedContentForClient = {
   generatedContent: string;
   id: string;
   name: MaybeUndef<string>;
+  userId: string;
   prompt: {
     about: string;
     contentType: string;
@@ -27,12 +28,21 @@ function convertGeneratedContent(
     id: prismaGeneratedContent.id,
     generatedContent: prismaGeneratedContent.generatedContent,
     name: prismaGeneratedContent.name,
+    userId: prismaGeneratedContent.userId,
     prompt: {
       about: prismaPrompt.about,
       contentType: prismaPrompt.contentType,
       personality: prismaPrompt.personality,
     },
   };
+}
+
+export async function deleteFavorite(id: string): Promise<void> {
+  await prisma.generatedContent.delete({
+    where: {
+      id,
+    },
+  });
 }
 
 export async function getFavorite(
