@@ -6,6 +6,7 @@ import invariant from "tiny-invariant";
 
 export type GeneratedContentForClient = {
   createdAt: string;
+  generatedContent: string;
   id: string;
   name: MaybeUndef<string>;
   prompt: {
@@ -24,6 +25,7 @@ function convertGeneratedContent(
   return {
     createdAt: prismaGeneratedContent.createdAt.toString(),
     id: prismaGeneratedContent.id,
+    generatedContent: prismaGeneratedContent.generatedContent,
     name: prismaGeneratedContent.name,
     prompt: {
       about: prismaPrompt.about,

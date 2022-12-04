@@ -2,6 +2,7 @@ import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
+import ResponsiveContainer from "~/components/containers/ResponsiveContainer";
 import { getFavorites } from "~/models/generatedContent.server";
 import { requireUserId } from "~/session.server";
 
@@ -20,7 +21,7 @@ export const loader = async ({ request }: LoaderArgs) => {
 export default function Favorites() {
   const { favorites } = useLoaderData() as LoaderData;
   return (
-    <main>
+    <ResponsiveContainer>
       <h1>Favorites</h1>
       <ul>
         {favorites.map((favorite) => (
@@ -33,6 +34,6 @@ export default function Favorites() {
           </Link>
         ))}
       </ul>
-    </main>
+    </ResponsiveContainer>
   );
 }

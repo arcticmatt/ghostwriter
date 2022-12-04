@@ -90,7 +90,7 @@ async function seed() {
     await prisma.generatedContent.create({
       data: {
         isFavorite: true,
-        generatedContent: "The sky is blue, and cows go moo",
+        generatedContent: "the sky is blue\nand cows go moo\nfor me and you",
         name: "Test content",
         user: {
           connect: {
