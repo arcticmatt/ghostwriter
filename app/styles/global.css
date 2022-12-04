@@ -3,6 +3,10 @@
   padding: 10px;
 }
 
+.global-button:disabled {
+  background-color: gray !important;
+}
+
 .global-textInput {
   border: 1px solid black;
   border-radius: 4px;

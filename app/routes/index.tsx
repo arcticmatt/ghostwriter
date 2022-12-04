@@ -8,7 +8,7 @@ import type { Maybe } from "~/types/UtilityTypes";
 import PersonalitySelect from "~/components/select/PersonalitySelect";
 import type { ActionFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { Form, useActionData } from "@remix-run/react";
+import { Form, useActionData, useTransition } from "@remix-run/react";
 import getGeneratedContent from "~/api/getGeneratedContent";
 import invariant from "tiny-invariant";
 
@@ -63,6 +63,9 @@ export default function Index() {
   const [personality, setPersonality] = useState<Maybe<string>>(null);
   const data = useActionData();
 
+  const transition = useTransition();
+  const isSubmitting = Boolean(transition.submission);
+
   return (
     <ResponsiveContainer>
       <MyStyledH1>Welcome to Ghostwriter</MyStyledH1>
@@ -87,8 +90,8 @@ export default function Index() {
         />
         <input type="hidden" name="contentType" value={contentType ?? ""} />
         <input type="hidden" name="personality" value={personality ?? ""} />
-        <button className="global-button" type="submit">
-          Submit!
+        <button className="global-button" type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "Loading..." : "Submit!"}
         </button>
       </Form>
       {data?.response ? (
