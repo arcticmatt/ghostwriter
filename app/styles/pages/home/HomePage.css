@@ -3,7 +3,16 @@
 }
 
 .homePage-inputs {
-  align-items: center;
-  column-gap: 16px;
+  align-items: flex-start;
   display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+}
+
+@media only screen and (min-width: 1024px) {
+  .homePage-inputs {
+    flex-direction: row;
+    align-items: center;
+    column-gap: 16px;
+  }
 }

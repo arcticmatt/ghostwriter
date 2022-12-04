@@ -49,7 +49,8 @@ export function links() {
 }
 
 const MyStyledH1 = styled.h1`
-  font-size: 5rem;
+  font-size: 3rem;
+  line-height: 4rem;
   color: green;
 `;
 
