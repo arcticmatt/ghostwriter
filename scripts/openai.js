@@ -6,18 +6,24 @@ async function run() {
   });
   const openai = new OpenAIApi(configuration);
 
-  const contentType = "haiku";
+  const contentType = "rap song";
   const about = "pickles";
-  const personality = "Sylvia Plath";
+  const personality = "Snoop Dog";
 
   const prompt = `Write a ${contentType} about ${about} in the style of ${personality}`;
 
   try {
+    // Parameters taken from https://beta.openai.com/playground/p/default-chat
     const completion = await openai.createCompletion({
+      best_of: 1,
+      frequency_penalty: 0,
       model: "text-davinci-003",
+      presence_penalty: 0.6,
       prompt,
       // safety check so we don't get billed like crazy
-      max_tokens: 50,
+      max_tokens: 500,
+      temperature: 0.9,
+      top_p: 1,
     });
     console.log(completion.data.choices[0].text);
   } catch (error) {
