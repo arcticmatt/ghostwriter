@@ -2,7 +2,6 @@ import ResponsiveContainer from "~/components/containers/ResponsiveContainer";
 import styles from "~/styles/pages/home/HomePage.css";
 import styled from "@emotion/styled";
 
-import { useOptionalUser } from "~/utils";
 import ContentTypeSelect from "~/components/select/ContentTypeSelect";
 import { useState } from "react";
 import type { Maybe } from "~/types/UtilityTypes";
@@ -10,13 +9,40 @@ import PersonalitySelect from "~/components/select/PersonalitySelect";
 import type { ActionFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Form, useActionData } from "@remix-run/react";
+import getGeneratedContent from "~/api/getGeneratedContent";
+import invariant from "tiny-invariant";
+
+type ActionData = {
+  contentType: null | string;
+  about: null | string;
+  personality: null | string;
+};
 
 export const action: ActionFunction = async ({ request }) => {
-  console.log("in remix action");
   const formData = await request.formData();
-  console.log("formData", ...formData);
 
-  return json({ test: "hello world" });
+  const contentType = formData.get("contentType");
+  const about = formData.get("about");
+  const personality = formData.get("personality");
+
+  invariant(typeof contentType === "string", "contentType must be a string");
+  invariant(typeof about === "string", "about must be a string");
+  invariant(typeof personality === "string", "personality must be a string");
+
+  const errors: ActionData = {
+    contentType: contentType ? null : "Content type is required",
+    about: about ? null : "Topic is required",
+    personality: personality ? null : "Personality is required",
+  };
+  const hasErrors = Object.values(errors).some((errorMessage) => errorMessage);
+  if (hasErrors) {
+    return json<ActionData>(errors);
+  }
+
+  const response = await getGeneratedContent(contentType, about, personality);
+
+  console.log("RESPONSE IN ACTION", response);
+  return json({ response });
 };
 
 export function links() {
@@ -29,12 +55,11 @@ const MyStyledH1 = styled.h1`
 `;
 
 export default function Index() {
-  const user = useOptionalUser();
   const [contentType, setContentType] = useState<Maybe<string>>(null);
   const [personality, setPersonality] = useState<Maybe<string>>(null);
   const data = useActionData();
 
-  console.log("data", data);
+  console.log("action data NOT printing", data);
 
   return (
     <ResponsiveContainer>
