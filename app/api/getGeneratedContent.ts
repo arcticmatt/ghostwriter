@@ -22,8 +22,11 @@ async function getGeneratedContent(
     const completion = await openAI.createCompletion({
       model: "text-davinci-003",
       prompt,
-      // safety check so we don't get billed like crazy
-      max_tokens: 50,
+      max_tokens: 150,
+      temperature: 0.9,
+      top_p: 1.0,
+      frequency_penalty: 0.0,
+      presence_penalty: 0.0,
     });
     response = completion.data.choices[0].text;
   } catch (error) {
