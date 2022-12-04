@@ -19,14 +19,17 @@ async function getGeneratedContent(
   let response: string = "";
 
   try {
-    // https://beta.openai.com/docs/api-reference/completions
+    // Parameters taken from https://beta.openai.com/playground/p/default-chat
     const completion = await openAI.createCompletion({
+      best_of: 1,
+      frequency_penalty: 0,
       model: "text-davinci-003",
+      presence_penalty: 0.6,
       prompt,
-      max_tokens: 150,
+      // safety check so we don't get billed like crazy
+      max_tokens: 500,
       temperature: 0.9,
-      frequency_penalty: 0.0,
-      presence_penalty: 0.0,
+      top_p: 1,
     });
     response = completion.data.choices[0].text;
   } catch (error) {
