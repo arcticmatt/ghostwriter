@@ -19,12 +19,12 @@ async function getGeneratedContent(
   let response: string = "";
 
   try {
+    // https://beta.openai.com/docs/api-reference/completions
     const completion = await openAI.createCompletion({
       model: "text-davinci-003",
       prompt,
       max_tokens: 150,
       temperature: 0.9,
-      top_p: 1.0,
       frequency_penalty: 0.0,
       presence_penalty: 0.0,
     });
