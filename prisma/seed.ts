@@ -85,28 +85,65 @@ async function seed() {
     });
   }
 
-  const numGeneratedContent = await prisma.generatedContent.count();
-  if (numGeneratedContent === 0) {
-    await prisma.generatedContent.create({
-      data: {
-        isFavorite: true,
-        generatedContent: "the sky is blue\nand cows go moo\nfor me and you",
-        name: "Test content",
-        user: {
-          connect: {
-            id: user.id,
-          },
-        },
-        prompt: {
-          create: {
-            about: "Sky",
-            contentType: "Poem",
-            personality: "Matt",
-          },
+  await prisma.generatedContent.deleteMany();
+  await prisma.generatedContent.create({
+    data: {
+      isFavorite: true,
+      generatedContent: "the sky is blue\nand cows go moo\nfor me and you",
+      name: "Test content",
+      user: {
+        connect: {
+          id: user.id,
         },
       },
-    });
-  }
+      prompt: {
+        create: {
+          about: "Sky",
+          contentType: "Poem",
+          personality: "Matt",
+        },
+      },
+    },
+  });
+  await prisma.generatedContent.create({
+    data: {
+      isFavorite: true,
+      generatedContent: "another poem\nit is nice",
+      name: "Test content 2",
+      user: {
+        connect: {
+          id: user.id,
+        },
+      },
+      prompt: {
+        create: {
+          about: "Poems",
+          contentType: "Poem",
+          personality: "Katherine",
+        },
+      },
+    },
+  });
+  await prisma.generatedContent.create({
+    data: {
+      isFavorite: true,
+      generatedContent:
+        "bananas are yellow\nand apples are red\nand so are tomatoes",
+      name: "Test content 3",
+      user: {
+        connect: {
+          id: user.id,
+        },
+      },
+      prompt: {
+        create: {
+          about: "Bananas",
+          contentType: "Poem",
+          personality: "Keegan",
+        },
+      },
+    },
+  });
 
   console.log(`Database has been seeded. 🌱`);
 }

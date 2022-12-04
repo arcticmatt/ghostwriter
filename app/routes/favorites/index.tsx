@@ -30,7 +30,11 @@ export default function Favorites() {
             to={favorite.id}
             className="text-blue-600 underline"
           >
-            <li>{favorite.prompt.about}</li>
+            <li>
+              A {favorite.prompt.contentType.toLocaleLowerCase()} about{" "}
+              {favorite.prompt.about.toLocaleLowerCase()} in the style of{" "}
+              {favorite.prompt.personality}
+            </li>
           </Link>
         ))}
       </ul>

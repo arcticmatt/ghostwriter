@@ -1,7 +1,7 @@
 import type { ActionFunction, LoaderFunction } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { useLoaderData, useSubmit } from "@remix-run/react";
+import { useLoaderData, useSubmit, useTransition } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import ResponsiveContainer from "~/components/containers/ResponsiveContainer";
 
@@ -19,7 +19,7 @@ export const action: ActionFunction = async ({ request }) => {
 
   const favorite = await getFavorite(id);
   invariant(favorite != null, "Favorite must exist");
-  invariant(favorite.userId !== userId, "User must own favorite to delete it");
+  invariant(favorite.userId === userId, "User must own favorite to delete it");
 
   await deleteFavorite(id);
 
@@ -40,6 +40,9 @@ export const loader: LoaderFunction = async ({ params }) => {
 export default function FavoriteId() {
   const { favorite } = useLoaderData() as LoaderData;
   const submit = useSubmit();
+  const transition = useTransition();
+  const isSubmitting = Boolean(transition.submission);
+
   return (
     <ResponsiveContainer>
       <h1 className="my-6 border-b-2 text-center text-3xl">{favorite.name}</h1>
@@ -57,10 +60,11 @@ export default function FavoriteId() {
       </div>
       <button
         className="global-button"
-        onClick={() => submit({ test: "foo" }, { method: "post" })}
+        disabled={isSubmitting}
+        onClick={() => submit({ id: favorite.id }, { method: "post" })}
         style={{ marginTop: 16 }}
       >
-        Delete
+        {isSubmitting ? "Deleting..." : "Delete"}
       </button>
     </ResponsiveContainer>
   );
