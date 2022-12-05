@@ -31,7 +31,8 @@ export default function Favorites() {
             className="text-blue-600 underline"
           >
             <li>
-              A {favorite.prompt.contentType.toLocaleLowerCase()} about{" "}
+              {favorite.name}—A{" "}
+              {favorite.prompt.contentType.toLocaleLowerCase()} about{" "}
               {favorite.prompt.about.toLocaleLowerCase()} in the style of{" "}
               {favorite.prompt.personality}
             </li>

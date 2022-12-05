@@ -70,3 +70,20 @@ export async function getFavorites(
   });
   return prismaGeneratedContent.map((val) => convertGeneratedContent(val));
 }
+
+export async function updateFavoriteName(
+  id: string,
+  name: string
+): Promise<GeneratedContentForClient> {
+  const prismaGeneratedContent = await prisma.generatedContent.update({
+    data: {
+      name,
+    },
+    include: GENERATED_CONTENT_INCLUDE,
+    where: {
+      id,
+    },
+  });
+  invariant(prismaGeneratedContent != null);
+  return convertGeneratedContent(prismaGeneratedContent);
+}
