@@ -1,6 +1,6 @@
 import { prisma } from "~/db.server";
 
-import type { GeneratedContent, Prompt } from "@prisma/client";
+import type { GeneratedContent, Prompt, User } from "@prisma/client";
 import type { MaybeUndef } from "~/types/UtilityTypes";
 import invariant from "tiny-invariant";
 
@@ -35,6 +35,32 @@ function convertGeneratedContent(
       personality: prismaPrompt.personality,
     },
   };
+}
+
+export function createFavorite({
+  generatedContent,
+  userId,
+  about,
+  contentType,
+  personality,
+}: GeneratedContent &
+  Prompt & {
+    userId: User["id"];
+  }) {
+  return prisma.generatedContent.create({
+    data: {
+      generatedContent,
+      isFavorite: true,
+      prompt: {
+        create: { about, contentType, personality },
+      },
+      user: {
+        connect: {
+          id: userId,
+        },
+      },
+    },
+  });
 }
 
 export async function deleteFavorite(id: string): Promise<void> {
