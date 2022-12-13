@@ -69,6 +69,8 @@ export default function Index() {
   const [personality, setPersonality] = useState<Maybe<string>>(null);
   const actionData = useActionData();
 
+  console.log(actionData);
+
   const transition = useTransition();
   const isSubmitting = Boolean(transition.submission);
 
@@ -82,7 +84,7 @@ export default function Index() {
           setContentType={setContentType}
         />
         {actionData?.errors?.contentType ? (
-          <em className="text-red-600">{actionData?.errors?.contentType}</em>
+          <em className="text-red-600">{actionData.errors.contentType}</em>
         ) : null}
         <div>about</div>
         <input
@@ -92,7 +94,7 @@ export default function Index() {
           name="about"
         />
         {actionData?.errors?.about ? (
-          <em className="text-red-600">{actionData?.errors?.about}</em>
+          <em className="text-red-600">{actionData.errors.about}</em>
         ) : null}
         <div>in the style of</div>
         <PersonalitySelect
@@ -100,7 +102,7 @@ export default function Index() {
           setPersonality={setPersonality}
         />
         {actionData?.errors?.personality ? (
-          <em className="text-red-600">{actionData?.errors?.personality}</em>
+          <em className="text-red-600">{actionData.errors.personality}</em>
         ) : null}
         <input type="hidden" name="contentType" value={contentType ?? ""} />
         <input type="hidden" name="personality" value={personality ?? ""} />
@@ -108,8 +110,8 @@ export default function Index() {
           {isSubmitting ? "Loading..." : "Submit!"}
         </button>
       </Form>
-      {actionData?.data?.response ? (
-        <ResponseDiv>{actionData?.response.trim()}</ResponseDiv>
+      {actionData?.data ? (
+        <ResponseDiv>{actionData.data.trim()}</ResponseDiv>
       ) : null}
     </ResponsiveContainer>
   );
