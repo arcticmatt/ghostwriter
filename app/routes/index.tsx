@@ -69,8 +69,6 @@ export default function Index() {
   const [personality, setPersonality] = useState<Maybe<string>>(null);
   const actionData = useActionData();
 
-  console.log(actionData);
-
   const transition = useTransition();
   const isSubmitting = Boolean(transition.submission);
 
