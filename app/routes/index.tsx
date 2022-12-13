@@ -7,7 +7,6 @@ import { useState } from "react";
 import type { Maybe } from "~/types/UtilityTypes";
 import PersonalitySelect from "~/components/select/PersonalitySelect";
 import type { ActionFunction } from "@remix-run/node";
-import { json } from "@remix-run/node";
 import { Form, useActionData, useTransition } from "@remix-run/react";
 import getGeneratedContent from "~/api/getGeneratedContent";
 import invariant from "tiny-invariant";
@@ -18,9 +17,7 @@ type ActionData = {
   personality: null | string;
 };
 
-export const action: ActionFunction = async ({ request }) => {
-  const formData = await request.formData();
-
+const submitFormAction = async (formData: FormData) => {
   const contentType = formData.get("contentType");
   const about = formData.get("about");
   const personality = formData.get("personality");
@@ -36,12 +33,20 @@ export const action: ActionFunction = async ({ request }) => {
   };
   const hasErrors = Object.values(errors).some((errorMessage) => errorMessage);
   if (hasErrors) {
-    return json<ActionData>(errors);
+    return { errors };
   }
 
   const response = await getGeneratedContent(contentType, about, personality);
 
-  return json({ response });
+  return { data: response };
+};
+
+export const action: ActionFunction = async ({ request }) => {
+  const formData = await request.formData();
+
+  const response = await submitFormAction(formData);
+
+  return response;
 };
 
 export function links() {
@@ -62,7 +67,7 @@ const ResponseDiv = styled.div`
 export default function Index() {
   const [contentType, setContentType] = useState<Maybe<string>>(null);
   const [personality, setPersonality] = useState<Maybe<string>>(null);
-  const data = useActionData();
+  const actionData = useActionData();
 
   const transition = useTransition();
   const isSubmitting = Boolean(transition.submission);
@@ -76,27 +81,35 @@ export default function Index() {
           contentType={contentType}
           setContentType={setContentType}
         />
+        {actionData?.errors?.contentType ? (
+          <em className="text-red-600">{actionData?.errors?.contentType}</em>
+        ) : null}
         <div>about</div>
         <input
           className="global-textInput"
           type="text"
           id="about"
           name="about"
-          required
         />
+        {actionData?.errors?.about ? (
+          <em className="text-red-600">{actionData?.errors?.about}</em>
+        ) : null}
         <div>in the style of</div>
         <PersonalitySelect
           personality={personality}
           setPersonality={setPersonality}
         />
+        {actionData?.errors?.personality ? (
+          <em className="text-red-600">{actionData?.errors?.personality}</em>
+        ) : null}
         <input type="hidden" name="contentType" value={contentType ?? ""} />
         <input type="hidden" name="personality" value={personality ?? ""} />
         <button className="global-button" type="submit" disabled={isSubmitting}>
           {isSubmitting ? "Loading..." : "Submit!"}
         </button>
       </Form>
-      {data?.response ? (
-        <ResponseDiv>{data.response.trim()}</ResponseDiv>
+      {actionData?.data?.response ? (
+        <ResponseDiv>{actionData?.response.trim()}</ResponseDiv>
       ) : null}
     </ResponsiveContainer>
   );
