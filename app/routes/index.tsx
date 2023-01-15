@@ -114,7 +114,7 @@ export default function Index() {
           </button>
         </Form>
         {actionData?.data ? (
-          <div className="mt-4 whitespace-pre-line">
+          <div className="mt-12 whitespace-pre-line">
             {actionData.data.trim()}
           </div>
         ) : null}
