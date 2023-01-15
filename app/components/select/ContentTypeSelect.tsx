@@ -21,7 +21,24 @@ export default function ContentTypeSelect({
       onChange={(val) => setContentType((val as any).value)}
       options={OPTIONS}
       placeholder=""
-      className="w-40 h-8"
+      className="h-8 w-40"
+      styles={{
+        control: (baseStyles) => ({
+          ...baseStyles,
+          borderColor: "#139576",
+          boxShadow: "none",
+        }),
+        option: (baseStyles, state) => ({
+          ...baseStyles,
+          backgroundColor: state.isSelected ? "#139576" : "#F5F5F5",
+          "&:hover": !state.isSelected
+            ? {
+                backgroundColor: "#139576",
+                color: "white",
+              }
+            : {},
+        }),
+      }}
       value={
         contentType == null ? null : { value: contentType, label: contentType }
       }

@@ -58,19 +58,19 @@ export default function Index() {
 
   return (
     <ResponsiveContainer className="p-8 sm:p-12">
-      <h3 className="text-xl text-center font-bakbak-one text-ghost-green">
+      <h3 className="text-center font-bakbak-one text-xl text-ghost-green">
         GHOSTWRITER
       </h3>
-      <h1 className="mt-8 text-4xl text-center font-bakbak-one text-ghost-green">
+      <h1 className="mt-8 text-center font-bakbak-one text-4xl text-ghost-green">
         Write a poem in seconds
       </h1>
-      <div className="flex justify-center w-full mt-8">
-        <p className="mr-2 text-center text-md font-inter text-ghost-green">
+      <div className="mt-8 flex w-full justify-center">
+        <p className="text-md mr-2 text-center font-inter text-ghost-green">
           Try it out
         </p>
-        <img src={squiggle} alt="squiggly line" className="h-8 mt-2" />
+        <img src={squiggle} alt="squiggly line" className="mt-2 h-8" />
       </div>
-      <div className="p-8 mt-6 bg-white rounded-3xl">
+      <div className="mt-6 rounded-3xl bg-white p-8">
         <Form
           className="flex flex-col items-start items-center justify-center gap-y-2 md:flex-row"
           method="post"
@@ -85,7 +85,7 @@ export default function Index() {
           ) : null}
           <p className="mx-4 whitespace-nowrap text-ghost-green">about</p>
           <input
-            className="w-40 h-8 p-2 border border-solid rounded-lg border-ghost-green"
+            className="h-8 w-40 rounded-lg border border-solid border-ghost-green p-2"
             type="text"
             id="about"
             name="about"
@@ -106,7 +106,7 @@ export default function Index() {
           <input type="hidden" name="contentType" value={contentType ?? ""} />
           <input type="hidden" name="personality" value={personality ?? ""} />
           <button
-            className="px-8 py-2 mt-4 text-white rounded-lg w-36 bg-ghost-green md:ml-8 md:mt-0"
+            className="mt-4 w-36 rounded-lg bg-ghost-green px-8 py-2 text-white md:ml-8 md:mt-0"
             type="submit"
             disabled={isSubmitting}
           >

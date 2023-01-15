@@ -23,6 +23,10 @@ import ClientStyleContext from "./styles/client.context";
 
 export const links: LinksFunction = () => {
   return [
+    {
+      rel: "icon",
+      href: "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👻</text></svg>",
+    },
     { rel: "stylesheet", href: globalStyles },
     { rel: "stylesheet", href: tailwindStylesheetUrl },
     { rel: "preconnect", href: "https://fonts.gstatic.com" },
@@ -35,7 +39,8 @@ export const links: LinksFunction = () => {
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
-  title: "Remix Notes",
+  description: "Write a poem in seconds",
+  title: "Ghostwriter",
   viewport: "width=device-width,initial-scale=1",
 });
 

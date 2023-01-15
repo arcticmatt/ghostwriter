@@ -20,8 +20,25 @@ export default function PersonalitySelect({
     <CreatableSelect
       onChange={(val) => setPersonality((val as any).value)}
       options={OPTIONS}
-      className="w-40 h-8"
+      className="h-8 w-40"
       placeholder=""
+      styles={{
+        control: (baseStyles) => ({
+          ...baseStyles,
+          borderColor: "#139576",
+          boxShadow: "none",
+        }),
+        option: (baseStyles, state) => ({
+          ...baseStyles,
+          backgroundColor: state.isSelected ? "#139576" : "#F5F5F5",
+          "&:hover": !state.isSelected
+            ? {
+                backgroundColor: "#139576",
+                color: "white",
+              }
+            : {},
+        }),
+      }}
       value={
         personality == null ? null : { value: personality, label: personality }
       }
