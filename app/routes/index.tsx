@@ -1,6 +1,5 @@
 import ResponsiveContainer from "~/components/containers/ResponsiveContainer";
 import styles from "~/styles/pages/home/HomePage.css";
-import styled from "@emotion/styled";
 
 import ContentTypeSelect from "~/components/select/ContentTypeSelect";
 import { useState } from "react";
@@ -53,17 +52,6 @@ export function links() {
   return [{ rel: "stylesheet", href: styles }];
 }
 
-const MyStyledH1 = styled.h1`
-  font-size: 3rem;
-  line-height: 4rem;
-  color: green;
-`;
-
-const ResponseDiv = styled.div`
-  white-space: pre-line;
-  margin-top: 16px;
-`;
-
 export default function Index() {
   const [contentType, setContentType] = useState<Maybe<string>>(null);
   const [personality, setPersonality] = useState<Maybe<string>>(null);
@@ -73,8 +61,10 @@ export default function Index() {
   const isSubmitting = Boolean(transition.submission);
 
   return (
-    <ResponsiveContainer>
-      <MyStyledH1>Welcome to Ghostwriter</MyStyledH1>
+    <ResponsiveContainer className="p-8 sm:p-12">
+      <h1 className="text-2xl text-center font-bakbak-one text-ghost-green">
+        GHOSTWRITER
+      </h1>
       <Form className="homePage-inputs" method="post">
         <div>Write a</div>
         <ContentTypeSelect
@@ -109,7 +99,7 @@ export default function Index() {
         </button>
       </Form>
       {actionData?.data ? (
-        <ResponseDiv>{actionData.data.trim()}</ResponseDiv>
+        <div className="mt-4 whitespace-pre-line">{actionData.data.trim()}</div>
       ) : null}
     </ResponsiveContainer>
   );
