@@ -9,6 +9,7 @@ import { Form, useActionData, useTransition } from "@remix-run/react";
 import getGeneratedContent from "~/api/getGeneratedContent";
 import invariant from "tiny-invariant";
 import squiggle from "../assets/images/squiggle.svg";
+import Typewriter from "~/components/Typewriter";
 
 type ActionData = {
   contentType: null | string;
@@ -62,7 +63,7 @@ export default function Index() {
         GHOSTWRITER
       </h3>
       <h1 className="mt-8 text-center font-bakbak-one text-4xl text-ghost-green">
-        Write a poem in seconds
+        Write a {<Typewriter />} in seconds
       </h1>
       <div className="mt-8 flex w-full justify-center">
         <p className="text-md mr-2 text-center font-inter text-ghost-green">
