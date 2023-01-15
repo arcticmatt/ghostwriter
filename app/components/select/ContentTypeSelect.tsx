@@ -27,6 +27,9 @@ export default function ContentTypeSelect({
           ...baseStyles,
           borderColor: "#139576",
           boxShadow: "none",
+          "&:hover": {
+            borderColor: "#139576",
+          },
         }),
         option: (baseStyles, state) => ({
           ...baseStyles,
