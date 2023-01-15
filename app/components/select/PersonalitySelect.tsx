@@ -20,7 +20,8 @@ export default function PersonalitySelect({
     <CreatableSelect
       onChange={(val) => setPersonality((val as any).value)}
       options={OPTIONS}
-      placeholder="Select a person"
+      className="w-40 h-8"
+      placeholder=""
       value={
         personality == null ? null : { value: personality, label: personality }
       }

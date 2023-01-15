@@ -5,11 +5,11 @@ module.exports = {
     fontFamily: {
       sans: ["Inter", "sans-serif"],
     },
-    colors: {
-      "ghost-green": "#139576",
-      "ghost-gray": "#F5F5F5",
-    },
     extend: {
+      colors: {
+        "ghost-green": "#139576",
+        "ghost-gray": "#F5F5F5",
+      },
       fontFamily: {
         "bakbak-one": ["Bakbak One", "arial"],
         inter: ["Inter", "arial"],

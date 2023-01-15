@@ -8,6 +8,7 @@ import type { ActionFunction } from "@remix-run/node";
 import { Form, useActionData, useTransition } from "@remix-run/react";
 import getGeneratedContent from "~/api/getGeneratedContent";
 import invariant from "tiny-invariant";
+import squiggle from "../assets/images/squiggle.svg";
 
 type ActionData = {
   contentType: null | string;
@@ -56,16 +57,21 @@ export default function Index() {
   const isSubmitting = Boolean(transition.submission);
 
   return (
-    <ResponsiveContainer className="h-screen p-8 border-4 border-solid border-ghost-green bg-ghost-gray sm:p-12">
+    <ResponsiveContainer className="h-screen p-8 border-4 border-solid min-w-min border-ghost-green bg-ghost-gray sm:p-12">
       <h3 className="text-xl text-center font-bakbak-one text-ghost-green">
         GHOSTWRITER
       </h3>
       <h1 className="mt-8 text-4xl text-center font-bakbak-one text-ghost-green">
         Write a poem in seconds
       </h1>
+      <div className="flex justify-center w-full mt-8 ">
+        <p className="mr-2 text-center text-md font-inter text-ghost-green">
+          Try it out
+        </p>
+        <img src={squiggle} alt="squiggly line" className="h-8 mt-2" />
+      </div>
       <Form
-        style={{ backgroundColor: "white" }}
-        className="flex flex-col items-start p-8 mt-8 bg-red-500 gap-y-2 rounded-3xl"
+        className="flex flex-col items-start items-center justify-between p-8 mt-6 bg-white gap-y-2 rounded-3xl md:flex-row"
         method="post"
       >
         <div>Write a</div>
@@ -78,7 +84,7 @@ export default function Index() {
         ) : null}
         <div>about</div>
         <input
-          className="global-textInput"
+          className="w-40 h-8 border border-solid rounded-lg border-ghost-green"
           type="text"
           id="about"
           name="about"
@@ -96,8 +102,12 @@ export default function Index() {
         ) : null}
         <input type="hidden" name="contentType" value={contentType ?? ""} />
         <input type="hidden" name="personality" value={personality ?? ""} />
-        <button className="global-button" type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Loading..." : "Submit!"}
+        <button
+          className="px-8 py-2 mt-4 text-white rounded-lg bg-ghost-green md:mt-0"
+          type="submit"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? "Loading..." : "GO!"}
         </button>
       </Form>
       {actionData?.data ? (

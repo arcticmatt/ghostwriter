@@ -20,7 +20,8 @@ export default function ContentTypeSelect({
     <CreatableSelect
       onChange={(val) => setContentType((val as any).value)}
       options={OPTIONS}
-      placeholder="Select a content type"
+      placeholder=""
+      className="w-40 h-8"
       value={
         contentType == null ? null : { value: contentType, label: contentType }
       }
