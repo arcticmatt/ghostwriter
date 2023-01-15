@@ -10,22 +10,24 @@ const OPTIONS = Object.values(Personality).map((personality) => ({
 type Props = {
   personality: Maybe<string>;
   setPersonality: (val: string) => void;
+  hasError: boolean;
 };
 
 export default function PersonalitySelect({
   personality,
   setPersonality,
+  hasError,
 }: Props) {
   return (
     <CreatableSelect
       onChange={(val) => setPersonality((val as any).value)}
       options={OPTIONS}
-      className="h-8 w-40"
+      className="w-40 h-8"
       placeholder=""
       styles={{
         control: (baseStyles) => ({
           ...baseStyles,
-          borderColor: "#139576",
+          borderColor: hasError ? "red" : "#139576",
           boxShadow: "none",
           "&:hover": {
             borderColor: "#139576",
