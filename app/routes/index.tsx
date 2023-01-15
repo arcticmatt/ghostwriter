@@ -9,6 +9,7 @@ import { Form, useActionData, useTransition } from "@remix-run/react";
 import getGeneratedContent from "~/api/getGeneratedContent";
 import invariant from "tiny-invariant";
 import squiggle from "../assets/images/squiggle.svg";
+import Typewriter from "~/components/Typewriter";
 
 type ActionData = {
   contentType: null | string;
@@ -62,7 +63,7 @@ export default function Index() {
         GHOSTWRITER
       </h3>
       <h1 className="mt-8 text-4xl text-center font-bakbak-one text-ghost-green">
-        Write a poem in seconds
+        Write a {<Typewriter />} in seconds
       </h1>
       <div className="flex justify-center w-full mt-8">
         <p className="mr-2 text-center text-md font-inter text-ghost-green">
@@ -112,7 +113,7 @@ export default function Index() {
           </button>
         </Form>
         {actionData?.data ? (
-          <div className="mt-4 whitespace-pre-line">
+          <div className="mt-12 whitespace-pre-line">
             {actionData.data.trim()}
           </div>
         ) : null}

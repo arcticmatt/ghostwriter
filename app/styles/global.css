@@ -25,6 +25,49 @@
   padding-right: 16px;
 }
 
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+
+  49% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  95% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.blink {
+  animation: blink 1s linear 0s infinite normal none running;
+}
+
+.cursor {
+  background-color: #139576;
+  display: inline-block;
+  height: 34px;
+  margin-left: 2px;
+  position: relative;
+  top: 4px;
+  width: 2px;
+}
+/* 
+.pill {
+  align-items: center;
+  column-gap: 2px;
+  display: inline-flex;
+  height: 40px;
+} */
+
 @media only screen and (min-width: 768px) {
   .responsiveContainer-container {
     padding-left: 48px;
