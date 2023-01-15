@@ -57,62 +57,68 @@ export default function Index() {
   const isSubmitting = Boolean(transition.submission);
 
   return (
-    <ResponsiveContainer className="h-screen p-8 border-4 border-solid min-w-min border-ghost-green bg-ghost-gray sm:p-12">
+    <ResponsiveContainer className="p-8 sm:p-12">
       <h3 className="text-xl text-center font-bakbak-one text-ghost-green">
         GHOSTWRITER
       </h3>
       <h1 className="mt-8 text-4xl text-center font-bakbak-one text-ghost-green">
         Write a poem in seconds
       </h1>
-      <div className="flex justify-center w-full mt-8 ">
+      <div className="flex justify-center w-full mt-8">
         <p className="mr-2 text-center text-md font-inter text-ghost-green">
           Try it out
         </p>
         <img src={squiggle} alt="squiggly line" className="h-8 mt-2" />
       </div>
-      <Form
-        className="flex flex-col items-start items-center justify-between p-8 mt-6 bg-white gap-y-2 rounded-3xl md:flex-row"
-        method="post"
-      >
-        <div>Write a</div>
-        <ContentTypeSelect
-          contentType={contentType}
-          setContentType={setContentType}
-        />
-        {actionData?.errors?.contentType ? (
-          <em className="text-red-600">{actionData.errors.contentType}</em>
-        ) : null}
-        <div>about</div>
-        <input
-          className="w-40 h-8 border border-solid rounded-lg border-ghost-green"
-          type="text"
-          id="about"
-          name="about"
-        />
-        {actionData?.errors?.about ? (
-          <em className="text-red-600">{actionData.errors.about}</em>
-        ) : null}
-        <div>in the style of</div>
-        <PersonalitySelect
-          personality={personality}
-          setPersonality={setPersonality}
-        />
-        {actionData?.errors?.personality ? (
-          <em className="text-red-600">{actionData.errors.personality}</em>
-        ) : null}
-        <input type="hidden" name="contentType" value={contentType ?? ""} />
-        <input type="hidden" name="personality" value={personality ?? ""} />
-        <button
-          className="px-8 py-2 mt-4 text-white rounded-lg bg-ghost-green md:mt-0"
-          type="submit"
-          disabled={isSubmitting}
+      <div className="p-8 mt-6 bg-white rounded-3xl">
+        <Form
+          className="flex flex-col items-start items-center justify-center gap-y-2 md:flex-row"
+          method="post"
         >
-          {isSubmitting ? "Loading..." : "GO!"}
-        </button>
-      </Form>
-      {actionData?.data ? (
-        <div className="mt-4 whitespace-pre-line">{actionData.data.trim()}</div>
-      ) : null}
+          <p className="mr-4 whitespace-nowrap text-ghost-green">Write a</p>
+          <ContentTypeSelect
+            contentType={contentType}
+            setContentType={setContentType}
+          />
+          {actionData?.errors?.contentType ? (
+            <em className="text-red-600">{actionData.errors.contentType}</em>
+          ) : null}
+          <p className="mx-4 whitespace-nowrap text-ghost-green">about</p>
+          <input
+            className="w-40 h-8 p-2 border border-solid rounded-lg border-ghost-green"
+            type="text"
+            id="about"
+            name="about"
+          />
+          {actionData?.errors?.about ? (
+            <em className="text-red-600">{actionData.errors.about}</em>
+          ) : null}
+          <p className="mx-4 whitespace-nowrap text-ghost-green">
+            in the style of
+          </p>
+          <PersonalitySelect
+            personality={personality}
+            setPersonality={setPersonality}
+          />
+          {actionData?.errors?.personality ? (
+            <em className="text-red-600">{actionData.errors.personality}</em>
+          ) : null}
+          <input type="hidden" name="contentType" value={contentType ?? ""} />
+          <input type="hidden" name="personality" value={personality ?? ""} />
+          <button
+            className="px-8 py-2 mt-4 text-white rounded-lg w-36 bg-ghost-green md:ml-8 md:mt-0"
+            type="submit"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Loading" : "GO!"}
+          </button>
+        </Form>
+        {actionData?.data ? (
+          <div className="mt-4 whitespace-pre-line">
+            {actionData.data.trim()}
+          </div>
+        ) : null}
+      </div>
     </ResponsiveContainer>
   );
 }

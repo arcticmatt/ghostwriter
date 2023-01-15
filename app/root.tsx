@@ -92,7 +92,7 @@ const Document = withEmotionCache(
             />
           ))}
         </head>
-        <body>
+        <body style={{ backgroundColor: "#F5F5F5" }}>
           {children}
           <ScrollRestoration />
           <Scripts />
