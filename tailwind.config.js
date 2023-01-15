@@ -7,6 +7,7 @@ module.exports = {
     },
     colors: {
       "ghost-green": "#139576",
+      "ghost-gray": "#F5F5F5",
     },
     extend: {
       fontFamily: {

@@ -1,5 +1,4 @@
 import ResponsiveContainer from "~/components/containers/ResponsiveContainer";
-import styles from "~/styles/pages/home/HomePage.css";
 
 import ContentTypeSelect from "~/components/select/ContentTypeSelect";
 import { useState } from "react";
@@ -48,10 +47,6 @@ export const action: ActionFunction = async ({ request }) => {
   return response;
 };
 
-export function links() {
-  return [{ rel: "stylesheet", href: styles }];
-}
-
 export default function Index() {
   const [contentType, setContentType] = useState<Maybe<string>>(null);
   const [personality, setPersonality] = useState<Maybe<string>>(null);
@@ -61,11 +56,18 @@ export default function Index() {
   const isSubmitting = Boolean(transition.submission);
 
   return (
-    <ResponsiveContainer className="p-8 sm:p-12">
-      <h1 className="text-2xl text-center font-bakbak-one text-ghost-green">
+    <ResponsiveContainer className="h-screen p-8 border-4 border-solid border-ghost-green bg-ghost-gray sm:p-12">
+      <h3 className="text-xl text-center font-bakbak-one text-ghost-green">
         GHOSTWRITER
+      </h3>
+      <h1 className="mt-8 text-4xl text-center font-bakbak-one text-ghost-green">
+        Write a poem in seconds
       </h1>
-      <Form className="homePage-inputs" method="post">
+      <Form
+        style={{ backgroundColor: "white" }}
+        className="flex flex-col items-start p-8 mt-8 bg-red-500 gap-y-2 rounded-3xl"
+        method="post"
+      >
         <div>Write a</div>
         <ContentTypeSelect
           contentType={contentType}
