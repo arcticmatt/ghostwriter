@@ -29,6 +29,7 @@ export default function PersonalitySelect({
           ...baseStyles,
           borderColor: hasError ? "red" : "#139576",
           boxShadow: "none",
+          minWidth: "80px",
           "&:hover": {
             borderColor: "#139576",
           },
