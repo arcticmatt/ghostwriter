@@ -30,6 +30,8 @@ export default function PersonalitySelect({
           borderColor: hasError ? "red" : "#139576",
           boxShadow: "none",
           minWidth: "80px",
+          height: "38px",
+          borderRadius: "0.5rem",
           "&:hover": {
             borderColor: "#139576",
           },

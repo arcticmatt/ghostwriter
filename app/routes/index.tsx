@@ -58,65 +58,70 @@ export default function Index() {
   const isSubmitting = Boolean(transition.submission);
 
   return (
-    <ResponsiveContainer className="p-8 sm:p-12">
+    <ResponsiveContainer className="p-8 sm:p-12 ">
       <h3 className="text-xl text-center font-bakbak-one text-ghost-green">
         GHOSTWRITER
       </h3>
-      <h1 className="mt-8 text-4xl text-center font-bakbak-one text-ghost-green">
+      <h1 className="mt-8 text-4xl text-center font-bakbak-one text-ghost-green ">
         Write a {<Typewriter />} in seconds
       </h1>
-      <div className="flex justify-center w-full mt-8">
-        <p className="mr-2 text-center text-md font-inter text-ghost-green">
+      <div className="flex justify-center w-full mt-8 ">
+        <p className="mr-2 text-lg text-center font-inter text-ghost-green">
           Try it out
         </p>
         <img src={squiggle} alt="squiggly line" className="h-8 mt-2" />
       </div>
-      <div className="p-8 mt-6 bg-white rounded-3xl">
-        <Form
-          className="flex flex-col items-start items-center justify-center gap-y-2 md:flex-row"
-          method="post"
-        >
-          <p className="mr-4 whitespace-nowrap text-ghost-green">Write a</p>
-          <ContentTypeSelect
-            hasError={!!actionData?.errors?.contentType}
-            contentType={contentType}
-            setContentType={setContentType}
-          />
-          <p className="mx-4 whitespace-nowrap text-ghost-green">about</p>
-          <input
-            className={`h-8 w-40 rounded-lg border border-solid p-2 ${
-              actionData?.errors?.about
-                ? "border-red-500"
-                : "border-ghost-green"
-            }`}
-            type="text"
-            id="about"
-            name="about"
-          />
-          <p className="mx-4 whitespace-nowrap text-ghost-green">
-            in the style of
-          </p>
-
-          <PersonalitySelect
-            hasError={!!actionData?.errors?.personality}
-            personality={personality}
-            setPersonality={setPersonality}
-          />
-          <input type="hidden" name="contentType" value={contentType ?? ""} />
-          <input type="hidden" name="personality" value={personality ?? ""} />
-          <button
-            className="px-8 py-2 mt-4 text-white rounded-lg w-36 bg-ghost-green md:ml-8 md:mt-0"
-            type="submit"
-            disabled={isSubmitting}
+      <div className="flex justify-center w-full">
+        <div className="inline-block p-8 mt-6 bg-white rounded-3xl">
+          <Form
+            className="flex flex-col items-center justify-center gap-y-2 md:flex-row"
+            method="post"
           >
-            {isSubmitting ? "Loading" : "GO!"}
-          </button>
-        </Form>
-        {actionData?.data ? (
-          <div className="mt-12 whitespace-pre-line">
-            {actionData.data.trim()}
-          </div>
-        ) : null}
+            <p className="mr-4 text-lg whitespace-nowrap text-ghost-green">
+              Write a
+            </p>
+            <ContentTypeSelect
+              hasError={!!actionData?.errors?.contentType}
+              contentType={contentType}
+              setContentType={setContentType}
+            />
+            <p className="mx-4 text-lg whitespace-nowrap text-ghost-green">
+              about
+            </p>
+            <input
+              className={`focus:ring-3 h-9 w-40 rounded-lg border border-solid px-2 focus:ring-ghost-green ${
+                actionData?.errors?.about
+                  ? "border-red-500"
+                  : "border-ghost-green"
+              }`}
+              type="text"
+              id="about"
+              name="about"
+            />
+            <p className="mx-4 text-lg whitespace-nowrap text-ghost-green">
+              in the style of
+            </p>
+            <PersonalitySelect
+              hasError={!!actionData?.errors?.personality}
+              personality={personality}
+              setPersonality={setPersonality}
+            />
+            <input type="hidden" name="contentType" value={contentType ?? ""} />
+            <input type="hidden" name="personality" value={personality ?? ""} />
+            <button
+              className="px-8 py-2 mt-4 text-white rounded-lg w-36 bg-ghost-green md:ml-8 md:mt-0"
+              type="submit"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Loading" : "GO!"}
+            </button>
+          </Form>
+          {actionData?.data ? (
+            <div className="mt-12 whitespace-pre-line">
+              {actionData.data.trim()}
+            </div>
+          ) : null}
+        </div>
       </div>
     </ResponsiveContainer>
   );

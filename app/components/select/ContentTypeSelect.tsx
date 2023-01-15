@@ -30,6 +30,8 @@ export default function ContentTypeSelect({
           borderColor: hasError ? "red" : "#139576",
           boxShadow: "none",
           minWidth: "80px",
+          borderRadius: "0.5rem",
+          height: "36px",
           "&:hover": {
             borderColor: "#139576",
           },
