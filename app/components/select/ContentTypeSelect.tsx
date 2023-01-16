@@ -23,7 +23,7 @@ export default function ContentTypeSelect({
       onChange={(val) => setContentType((val as any).value)}
       options={OPTIONS}
       placeholder=""
-      className="w-40 h-8"
+      className="w-full h-8 md:w-40"
       styles={{
         control: (baseStyles) => ({
           ...baseStyles,

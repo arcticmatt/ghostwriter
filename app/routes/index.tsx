@@ -58,12 +58,12 @@ export default function Index() {
   const isSubmitting = Boolean(transition.submission);
 
   return (
-    <ResponsiveContainer className="p-8 sm:p-12 ">
+    <ResponsiveContainer className="p-8 md:p-12 ">
       <h3 className="text-xl text-center font-bakbak-one text-ghost-green">
         GHOSTWRITER
       </h3>
       <h1 className="mt-8 text-4xl text-center font-bakbak-one text-ghost-green ">
-        Write a {<Typewriter />} in seconds
+        Write a {<Typewriter />} <br className="md:hidden" /> in seconds
       </h1>
       <div className="flex justify-center w-full mt-8 ">
         <p className="mr-2 text-lg text-center font-inter text-ghost-green">
@@ -77,7 +77,7 @@ export default function Index() {
             className="flex flex-col items-center justify-center gap-y-2 md:flex-row"
             method="post"
           >
-            <p className="mr-4 text-lg whitespace-nowrap text-ghost-green">
+            <p className="mr-4 text-lg whitespace-nowrap text-start text-ghost-green">
               Write a
             </p>
             <ContentTypeSelect
@@ -89,7 +89,7 @@ export default function Index() {
               about
             </p>
             <input
-              className={`focus:ring-3 h-9 w-40 rounded-lg border border-solid px-2 focus:ring-ghost-green ${
+              className={`focus:ring-3 h-9 w-full rounded-lg border border-solid px-2 focus:ring-ghost-green md:w-40 ${
                 actionData?.errors?.about
                   ? "border-red-500"
                   : "border-ghost-green"

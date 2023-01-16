@@ -22,7 +22,7 @@ export default function PersonalitySelect({
     <CreatableSelect
       onChange={(val) => setPersonality((val as any).value)}
       options={OPTIONS}
-      className="w-40 h-8"
+      className="w-full h-8 md:w-40"
       placeholder=""
       styles={{
         control: (baseStyles) => ({
