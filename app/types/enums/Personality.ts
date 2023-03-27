@@ -1,13 +1,16 @@
 enum Personality {
-  Obama = "Obama",
-  SylviaPlath = "Sylvia Plath",
+  BarackObama = "Barack Obama",
+  Beyonce = "Beyonce",
   Eminem = "Eminem",
+  ErnestHemingway = "Ernest Hemingway",
   LiamNeeson = "Liam Neeson",
-  SnoopDogg = "Snoop Dogg",
+  Malala = "Malala",
   MickeyMouse = "Mickey Mouse",
   MorganFreeman = "Morgan Freeman",
+  OprahWinfrey = "Oprah Winfrey",
   Shakespeare = "Shakespeare",
-  ErnestHemingway = "Ernest Hemingway",
+  SnoopDogg = "Snoop Dogg",
+  SylviaPlath = "Sylvia Plath",
 }
 
 export default Personality;

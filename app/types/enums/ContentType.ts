@@ -1,10 +1,10 @@
 enum ContentType {
   Haiku = "Haiku",
-  Sonnet = "Sonnet",
-  Song = "Song",
-  Riddle = "Riddle",
   Joke = "Joke",
+  Riddle = "Riddle",
   ShortStory = "Short Story",
+  Song = "Song",
+  Sonnet = "Sonnet",
 }
 
 export default ContentType;
