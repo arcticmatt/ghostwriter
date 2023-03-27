@@ -3,6 +3,7 @@ enum ContentType {
   Joke = "Joke",
   Riddle = "Riddle",
   ShortStory = "Short Story",
+  Speech = "Speech",
   Song = "Song",
   Sonnet = "Sonnet",
 }
