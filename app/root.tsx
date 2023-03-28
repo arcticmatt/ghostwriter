@@ -37,11 +37,15 @@ export const links: LinksFunction = () => {
   ];
 };
 
+<meta property="og:image" content="ogImage.png" />;
+
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
-  description: "Write a poem in seconds",
+  description: "Write a masterpiece in seconds",
   title: "Ghostwriter",
   viewport: "width=device-width,initial-scale=1",
+  "twitter:card": "summary_large_image",
+  "og:image": "ogImage.png",
 });
 
 export async function loader({ request }: LoaderArgs) {
