@@ -75,12 +75,18 @@ export default function Index() {
         GHOSTWRITER
       </h3>
       <h1 className="mt-8 text-4xl text-center font-bakbak-one text-ghost-green ">
-        Write a {<Typewriter options={["poem", "haiku", "riddle", "song"]} />}{" "}
+        Write a{" "}
+        {
+          <Typewriter
+            cursorType="title"
+            options={["poem", "haiku", "riddle", "song"]}
+          />
+        }{" "}
         <br className="md:hidden" /> in seconds
       </h1>
       <div className="flex justify-center w-full mt-8 ">
         <p className="mr-2 text-lg text-center font-inter text-ghost-green">
-          Try it out
+          Select options or type your own.
         </p>
         <img src={squiggle} alt="squiggly line" className="h-8 mt-2" />
       </div>
@@ -122,11 +128,31 @@ export default function Index() {
             <input type="hidden" name="contentType" value={contentType ?? ""} />
             <input type="hidden" name="personality" value={personality ?? ""} />
             <button
-              className="px-8 py-2 mt-4 text-white rounded-lg w-36 bg-ghost-green md:ml-8 md:mt-0"
+              className="w-48 px-8 py-2 mt-4 text-white rounded-lg bg-ghost-green md:ml-8 md:mt-0"
               type="submit"
               disabled={isSubmitting}
             >
-              {isSubmitting ? "Loading" : "GO!"}
+              {isSubmitting ? (
+                <Typewriter
+                  cursorType="loading"
+                  options={[
+                    "Loading...",
+                    "Considering the prompt...",
+                    "Embodying the character...",
+                    "Writing it out...",
+                    "Almost there...",
+                    "It's worth the wait...",
+                    "Still thinking...",
+                    "We're close, I promise...",
+                    "This is way too long...",
+                    "I give up...not really...",
+                    "Seriously?! Still!?",
+                    "I'm not even trying anymore...",
+                  ]}
+                />
+              ) : (
+                "GO!"
+              )}
             </button>
           </Form>
           {actionData?.data ? (

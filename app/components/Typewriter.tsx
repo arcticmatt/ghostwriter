@@ -3,8 +3,10 @@ import joinClasses from "~/utils/joinClasses";
 
 export default function Typewriter({
   options,
+  cursorType,
 }: {
   options: string[];
+  cursorType: "loading" | "title";
 }): JSX.Element {
   const [name, setName] = useState(options[0]);
   const nameIndexRef = useRef(0);
@@ -56,7 +58,7 @@ export default function Typewriter({
   return (
     <>
       {name}
-      <div className={joinClasses("blink", "cursor")} />
+      <div className={joinClasses("blink", "cursor", cursorType)} />
     </>
   );
 }

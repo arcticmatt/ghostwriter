@@ -52,13 +52,21 @@
 }
 
 .cursor {
-  background-color: #139576;
   display: inline-block;
-  height: 34px;
   margin-left: 2px;
   position: relative;
   top: 4px;
   width: 2px;
+}
+
+.title {
+  background-color: #139576;
+  height: 34px;
+}
+
+.loading {
+  background-color: white;
+  height: 18px;
 }
 /* 
 .pill {
