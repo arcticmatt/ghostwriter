@@ -10,6 +10,7 @@ import getGeneratedContent from "~/api/getGeneratedContent";
 import invariant from "tiny-invariant";
 import squiggle from "../assets/images/squiggle.svg";
 import Typewriter from "~/components/Typewriter";
+import { Mixpanel } from "~/mixPanel";
 
 type ActionData = {
   contentType: null | string;
@@ -36,9 +37,20 @@ const submitFormAction = async (formData: FormData) => {
     return { errors };
   }
 
-  const response = await getGeneratedContent(contentType, about, personality);
+  try {
+    const response = await getGeneratedContent(contentType, about, personality);
 
-  return { data: response };
+    Mixpanel.track("Successful submission", {
+      contentType,
+      about,
+      personality,
+      response,
+    });
+
+    return { data: response };
+  } catch (err) {
+    return null;
+  }
 };
 
 export const action: ActionFunction = async ({ request }) => {
@@ -63,7 +75,8 @@ export default function Index() {
         GHOSTWRITER
       </h3>
       <h1 className="mt-8 text-4xl text-center font-bakbak-one text-ghost-green ">
-        Write a {<Typewriter />} <br className="md:hidden" /> in seconds
+        Write a {<Typewriter options={["poem", "haiku", "riddle", "song"]} />}{" "}
+        <br className="md:hidden" /> in seconds
       </h1>
       <div className="flex justify-center w-full mt-8 ">
         <p className="mr-2 text-lg text-center font-inter text-ghost-green">

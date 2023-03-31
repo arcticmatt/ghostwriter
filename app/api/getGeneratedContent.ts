@@ -40,6 +40,9 @@ async function getGeneratedContent(
     } else {
       console.log(error.message);
     }
+
+    // rethrow, catch on client
+    throw error;
   }
 
   return response;

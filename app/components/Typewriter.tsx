@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import joinClasses from "~/utils/joinClasses";
 
-const NAMES = ["poem", "haiku", "riddle", "song"];
-
-export default function Typewriter(): JSX.Element {
-  const [name, setName] = useState(NAMES[0]);
+export default function Typewriter({
+  options,
+}: {
+  options: string[];
+}): JSX.Element {
+  const [name, setName] = useState(options[0]);
   const nameIndexRef = useRef(0);
 
   // 1. Delete name
@@ -14,7 +16,7 @@ export default function Typewriter(): JSX.Element {
     function addName() {
       const interval = setInterval(() => {
         setName((currName) => {
-          if (currName.length === NAMES[nameIndexRef.current].length) {
+          if (currName.length === options[nameIndexRef.current].length) {
             clearInterval(interval);
             setTimeout(() => {
               deleteName();
@@ -22,7 +24,7 @@ export default function Typewriter(): JSX.Element {
             return currName;
           }
 
-          return NAMES[nameIndexRef.current].slice(0, currName.length + 1);
+          return options[nameIndexRef.current].slice(0, currName.length + 1);
         });
       }, 100);
       return interval;
@@ -33,7 +35,7 @@ export default function Typewriter(): JSX.Element {
         setName((currName) => {
           if (currName.length === 0) {
             clearInterval(interval);
-            nameIndexRef.current = (nameIndexRef.current + 1) % NAMES.length;
+            nameIndexRef.current = (nameIndexRef.current + 1) % options.length;
             setTimeout(() => {
               addName();
             }, 500);
