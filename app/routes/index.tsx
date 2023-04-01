@@ -57,6 +57,9 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export default function Index() {
+  useEffect(() => {
+    mixpanel.track("page_view", { page: "home_page" });
+  }, []);
   const [contentType, setContentType] = useState<Maybe<string>>(null);
   const [personality, setPersonality] = useState<Maybe<string>>(null);
   const actionData = useActionData();
