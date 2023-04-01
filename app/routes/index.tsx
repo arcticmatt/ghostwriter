@@ -1,7 +1,9 @@
 import ResponsiveContainer from "~/components/containers/ResponsiveContainer";
 
+import mixpanel from "mixpanel-browser";
+
 import ContentTypeSelect from "~/components/select/ContentTypeSelect";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Maybe } from "~/types/UtilityTypes";
 import PersonalitySelect from "~/components/select/PersonalitySelect";
 import type { ActionFunction } from "@remix-run/node";
@@ -10,7 +12,7 @@ import getGeneratedContent from "~/api/getGeneratedContent";
 import invariant from "tiny-invariant";
 import squiggle from "../assets/images/squiggle.svg";
 import Typewriter from "~/components/Typewriter";
-import { Mixpanel } from "~/mixPanel";
+import { Mixpanel, trackSubmission } from "~/mixPanel";
 
 type ActionData = {
   contentType: null | string;
@@ -40,13 +42,6 @@ const submitFormAction = async (formData: FormData) => {
   try {
     const response = await getGeneratedContent(contentType, about, personality);
 
-    Mixpanel.track("Successful submission", {
-      contentType,
-      about,
-      personality,
-      response,
-    });
-
     return { data: response };
   } catch (err) {
     return null;
@@ -71,10 +66,10 @@ export default function Index() {
 
   return (
     <ResponsiveContainer className="p-8 md:p-12 ">
-      <h3 className="text-xl text-center font-bakbak-one text-ghost-green">
+      <h3 className="text-center font-bakbak-one text-xl text-ghost-green">
         GHOSTWRITER
       </h3>
-      <h1 className="mt-8 text-4xl text-center font-bakbak-one text-ghost-green ">
+      <h1 className="mt-8 text-center font-bakbak-one text-4xl text-ghost-green ">
         Write a{" "}
         {
           <Typewriter
@@ -84,19 +79,19 @@ export default function Index() {
         }{" "}
         <br className="md:hidden" /> in seconds
       </h1>
-      <div className="flex justify-center w-full mt-8 ">
-        <p className="mr-2 text-lg text-center font-inter text-ghost-green">
+      <div className="mt-8 flex w-full justify-center ">
+        <p className="mr-2 text-center font-inter text-lg text-ghost-green">
           Select options or type your own.
         </p>
-        <img src={squiggle} alt="squiggly line" className="h-8 mt-2" />
+        <img src={squiggle} alt="squiggly line" className="mt-2 h-8" />
       </div>
-      <div className="flex justify-center w-full">
-        <div className="inline-block p-8 mt-6 bg-white rounded-3xl">
+      <div className="flex w-full justify-center">
+        <div className="mt-6 inline-block rounded-3xl bg-white p-8">
           <Form
             className="flex flex-col items-center justify-center gap-y-2 md:flex-row"
             method="post"
           >
-            <p className="mr-4 text-lg whitespace-nowrap text-start text-ghost-green">
+            <p className="mr-4 whitespace-nowrap text-start text-lg text-ghost-green">
               Write a
             </p>
             <ContentTypeSelect
@@ -104,7 +99,7 @@ export default function Index() {
               contentType={contentType}
               setContentType={setContentType}
             />
-            <p className="mx-4 text-lg whitespace-nowrap text-ghost-green">
+            <p className="mx-4 whitespace-nowrap text-lg text-ghost-green">
               about
             </p>
             <input
@@ -117,7 +112,7 @@ export default function Index() {
               id="about"
               name="about"
             />
-            <p className="mx-4 text-lg whitespace-nowrap text-ghost-green">
+            <p className="mx-4 whitespace-nowrap text-lg text-ghost-green">
               in the style of
             </p>
             <PersonalitySelect
@@ -128,9 +123,15 @@ export default function Index() {
             <input type="hidden" name="contentType" value={contentType ?? ""} />
             <input type="hidden" name="personality" value={personality ?? ""} />
             <button
-              className="w-48 px-8 py-2 mt-4 text-white rounded-lg bg-ghost-green md:ml-8 md:mt-0"
+              className="mt-4 w-48 rounded-lg bg-ghost-green px-8 py-2 text-white md:ml-8 md:mt-0"
               type="submit"
               disabled={isSubmitting}
+              onClick={() =>
+                trackSubmission({
+                  contentType,
+                  personality,
+                })
+              }
             >
               {isSubmitting ? (
                 <Typewriter
